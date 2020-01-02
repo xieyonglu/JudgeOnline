@@ -1,0 +1,57 @@
+body{
+	background-color:#b0c4de;
+	margin:0px;
+	text-align:center;
+}
+
+td{
+	font:12px;
+	padding:5px,5px;
+}
+.td_1{
+	font:12px;
+	text-align:right;
+	width:60px;
+}
+
+a{font:13px;text-align:right;}
+a:link{text-decoration:none; color:yellow;}
+a:visited{text-decoration:none; color:blue;}
+a:hover{text-decoration:underline; color:red;}
+a:active{text-decoration:none; color:green;}
+
+#one{
+	background-color:#b2e8f5;
+	width:1030px;
+	height:850px;
+	border:1px solid gray;
+}
+#two{
+	background-color:#b0c4de;
+	width:750px;
+	height:660px;
+	border:1px solid gray;
+}
+
+.text{
+	width:160px;
+	height:25px;
+}
+
+.button{
+	border-style:none;
+	background-color:#FFFFFF;
+	border:1px solid gray;
+	width:100px;
+	height:40px;
+	font-family:––ø¨GB2312,¡• È;
+	font:20px bold;
+	color:red;
+	cursor:hand;
+}
+
+.nobr br{display:none}
+
+
+
+

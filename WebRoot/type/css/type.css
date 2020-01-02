@@ -1,0 +1,38 @@
+/*修改标题CSS样式*/
+body{
+	background-color:#F9FBCC;
+	width:1200px;
+	height:800px;
+	text-align:center;
+}
+
+select{
+	position:relative;
+	font-size:15px;
+	line-height:60px;
+	border:0px;
+	color:red;
+}
+
+.button{
+	width:90px;
+	height:25px;
+	border-style:none;
+	background-color:#CF9;
+	color:green;
+	font-size:12px;
+	cursor:hand;
+}
+
+.td_1{
+	font-size:12px;
+	width:80px;
+}
+
+.text{
+	border-style:groove;
+	width:200px;
+	height:25px;
+}
+
+

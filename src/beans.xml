@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xmlns:aop="http://www.springframework.org/schema/aop"
+	    xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<context:annotation-config/>
+
+	<!--定义了自动扫描匹配-->
+	<context:component-scan base-package="org.xyl"/>
+
+	<!--加载jdbc.properties属性文件，得到数据库的相关数据-->
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	<!-- 自己去查询使用JNDI数据源的方式 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${databaseDriver}"/>
+		<property name="url" value="${url}"/>
+		<property name="username" value="${username}"/>
+		<property name="password" value="${password}"/>
+		<!-- 配置连接池的初始值 -->
+		<property name="initialSize" value="1"/>
+		<!-- 连接池的最大值 -->
+		<property name="maxActive" value="500"/>
+		<!-- 最大空闲时，当经过一个高峰之后，连接池可以将一些用不到的连接释放，一直减少到maxIdle为止 -->
+		<property name="maxIdle" value="2"/>
+		<!-- 当最小空闲时，当连接少于minIdle时会自动去申请一些连接 -->
+		<property name="minIdle" value="1"/>
+		<!--<property name="maxActive" value="100"/>  
+		<property name="maxIdle" value="20"/>-->
+		<property name="maxWait" value="1000"/>
+		
+		
+		<!--a. 如果设为true则tomcat自动检查恢复重新利用，没有正常关闭的Connection.（默认是false）-->  
+		<!--<property name="removeAbandoned" value="true"/> -->
+		<!-- b. 设定连接在多少秒内被认为是放弃的连接，即可进行恢复利用。 -->
+		<!--<property name="removeAbandonedTimeout" value="60"/> -->
+		<!-- c. 输出回收的日志，可以详细打印出异常从而发现是在那里发生了泄漏  -->
+		<!--<property name="logAbandoned" value="true"/>-->
+		
+	
+	</bean>
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"><!--
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+	-->
+		<property name="dataSource" ref="dataSource"/>
+		<!--自动去org.itat.message.vo包中找hbm或者配置了annotation的class文件 -->
+		<property name="packagesToScan">
+			<value>org.xyl.bean</value>
+		</property>
+		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				
+				<!-- JDBC connection pool (use the built-in) --> 
+		        <!-- <prop key="connection.pool_size">1</prop>   --> 
+		        <!-- Enable Hibernate's automatic session context management --> 
+		        <!-- <prop key="current_session_context_class">thread</prop>  --> 
+		        <!-- Disable the second-level cache --> 
+		        <!-- <prop key="cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>  --> 
+				
+			</props>
+		</property>
+	</bean>
+	
+	
+	<bean id="txManager" 
+            class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	
+  	<!--定义切入点-->
+	<aop:config>
+	    <aop:pointcut id="myMethod" 
+	            expression="execution(* org.xyl.service.*.*(..))"/>
+	    <aop:advisor advice-ref="txAdvice" pointcut-ref="myMethod"/>
+	</aop:config>
+
+	<!--事务定义，默认query和find开头的方法的事务为readly，其余方法按默认设置-->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+	   <tx:attributes>
+	     <tx:method name="add*" propagation="REQUIRED" />
+	     <tx:method name="update*" propagation="REQUIRED" />
+	     <tx:method name="delete*" propagation="REQUIRED" />
+	     <tx:method name="*" propagation="REQUIRED" read-only="true"/>
+	     <tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+		 <tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+		 <tx:method name="load*" propagation="SUPPORTS" read-only="true" />
+	   </tx:attributes>
+	 </tx:advice>
+
+	<!--测试的相关配置
+	<bean name="jugeManager" class="org.xyl.judge.JugeManager">
+		<property name="problemService"><ref bean="problemService"/></property>
+	</bean>
+	<bean name="jugeAction" class="com.etp.action.JugeAction">
+		<property name="jugeManager"><ref bean="jugeManager"/></property>
+	</bean>
+	-->
+
+
+</beans>
+
+
+
+
+
+
+
+            

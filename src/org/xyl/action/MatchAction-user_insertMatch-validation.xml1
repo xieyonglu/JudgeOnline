@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.3//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.3.dtd">
+
+<validators>
+
+	<!--比赛名称的校验-->
+	<field name="match.matchName">
+		<field-validator type="required">
+			<message>比赛名称不能为null！</message>
+		</field-validator>
+		<field-validator type="requiredstring">
+			<message>比赛名称不能为空！</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">2</param>
+			<param name="maxLength">20</param>
+			<message>比赛名称必须是2~20位！</message>
+		</field-validator>
+	</field>
+
+	<!--比赛地址的校验-->
+	<field name="match.address">
+		<field-validator type="required">
+			<message>比赛地址不能为null！</message>
+		</field-validator>
+		<field-validator type="requiredstring">
+			<message>比赛地址不能为空！</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">2</param>
+			<param name="maxLength">20</param>
+			<message>比赛地址必须是2~20位！</message>
+		</field-validator>
+	</field>
+
+	
+</validators>
+
+

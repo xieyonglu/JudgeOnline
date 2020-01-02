@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+                        "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<!--
+/*
+ * $Id: tiles-jsp.tld 606013 2007-12-20 20:02:36Z apetrelli $
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+-->
+<taglib>
+ <tlib-version>2.0</tlib-version>
+ <jsp-version>1.2</jsp-version>
+ <short-name>tiles</short-name>
+ <uri>http://tiles.apache.org/tags-tiles</uri>
+ <description>&lt;p&gt;This tag library provides Tiles tags.&lt;/p&gt;</description>
+ <tag>
+  <name>insertTemplate</name>
+  <tag-class>org.apache.tiles.jsp.taglib.InsertTemplateTag</tag-class>
+  <body-content>JSP</body-content>
+  <description>
+      &lt;p&gt;&lt;strong&gt;Insert a template.&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;Insert a template with the possibility to pass 
+      parameters (called attributes).
+      A template can be seen as a procedure that can take parameters or attributes.
+      &lt;code&gt;&amp;lt;tiles:insertTemplate&amp;gt;&lt;/code&gt; allows to define these attributes 
+      and pass them to the inserted jsp page, called template.
+      Attributes are defined using nested tag
+      &lt;code&gt;&amp;lt;tiles:putAttribute&amp;gt;&lt;/code&gt; or
+      &lt;code&gt;&amp;lt;tiles:putListAttribute&amp;gt;&lt;/code&gt;.
+      &lt;/p&gt;
+      &lt;p&gt;You must specify &lt;li&gt;&lt;code&gt;template&lt;/code&gt; attribute, for inserting a template&lt;/p&gt;
+     
+      &lt;p&gt;&lt;strong&gt;Example : &lt;/strong&gt;&lt;/p&gt;
+      &lt;pre&gt;
+        &lt;code&gt;
+          &amp;lt;tiles:insertTemplate template="/basic/myLayout.jsp" flush="true"&amp;gt;
+             &amp;lt;tiles:putAttribute name="title" value="My first page" /&amp;gt;
+             &amp;lt;tiles:putAttribute name="header" value="/common/header.jsp" /&amp;gt;
+             &amp;lt;tiles:putAttribute name="footer" value="/common/footer.jsp" /&amp;gt;
+             &amp;lt;tiles:putAttribute name="menu" value="/basic/menu.jsp" /&amp;gt;
+             &amp;lt;tiles:putAttribute name="body" value="/basic/helloBody.jsp" /&amp;gt;
+          &amp;lt;/tiles:insert&amp;gt;
+        &lt;/code&gt;
+      &lt;/pre&gt;
+      </description>
+  <attribute>
+   <name>template</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;A string representing the URI of a template (for example, a JSP
+         page).
+         &lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>flush</name>
+   <rtexprvalue>false</rtexprvalue>
+   <type>boolean</type>
+   <description>
+         &lt;p&gt;True or false. If true, current page out stream is flushed 
+         before insertion.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>ignore</name>
+   <rtexprvalue>true</rtexprvalue>
+   <type>boolean</type>
+   <description>
+         &lt;p&gt;If this attribute is set to true, and the attribute specified by the
+         name does not exist, simply return without writing anything. The
+         default value is false, which will cause a runtime exception to be
+         thrown.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>role</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;If the user is in the specified role, the tag is taken into account;
+         otherwise, the tag is ignored (skipped).&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>preparer</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The fully qualified class name of the preparer.</description>
+  </attribute>
+ </tag>
+ <tag>
+  <name>insertDefinition</name>
+  <tag-class>org.apache.tiles.jsp.taglib.InsertDefinitionTag</tag-class>
+  <body-content>JSP</body-content>
+  <description>
+      &lt;p&gt;&lt;strong&gt;Insert a definition.&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;Insert a definition with the possibility to override and specify 
+      parameters (called attributes).
+      A definition can be seen as a (partially or totally) filled template that
+      can override or complete attribute values.
+      &lt;code&gt;&amp;lt;tiles:insertDefinition&amp;gt;&lt;/code&gt; allows to define these attributes 
+      and pass them to the inserted jsp page, called template.
+      Attributes are defined using nested tag &lt;code&gt;&amp;lt;tiles:putAttribute&amp;gt;&lt;/code&gt; or
+      &lt;code&gt;&amp;lt;tiles:putListAttribute&amp;gt;&lt;/code&gt;.
+      &lt;/p&gt;
+      &lt;p&gt;You must specify &lt;code&gt;name&lt;/code&gt; tag attribute, for inserting a definition from 
+        definitions factory.&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;Example : &lt;/strong&gt;&lt;/p&gt;
+      &lt;pre&gt;
+        &lt;code&gt;
+          &amp;lt;tiles:insertDefinition name=".my.tiles.defininition flush="true"&amp;gt;
+             &amp;lt;tiles:putAttribute name="title" value="My first page" /&amp;gt;
+             &amp;lt;tiles:putAttribute name="header" value="/common/header.jsp" /&amp;gt;
+             &amp;lt;tiles:putAttribute name="footer" value="/common/footer.jsp" /&amp;gt;
+             &amp;lt;tiles:putAttribute name="menu" value="/basic/menu.jsp" /&amp;gt;
+             &amp;lt;tiles:putAttribute name="body" value="/basic/helloBody.jsp" /&amp;gt;
+          &amp;lt;/tiles:insertDefinition&amp;gt;
+        &lt;/code&gt;
+      &lt;/pre&gt;
+      </description>
+  <attribute>
+   <name>name</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Name of the definition to insert.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>flush</name>
+   <rtexprvalue>false</rtexprvalue>
+   <type>boolean</type>
+   <description>
+         &lt;p&gt;True or false. If true, current page out stream is flushed 
+         before insertion.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>ignore</name>
+   <rtexprvalue>true</rtexprvalue>
+   <type>boolean</type>
+   <description>
+         &lt;p&gt;If this attribute is set to true, and the attribute specified by the
+         name does not exist, simply return without writing anything. The
+         default value is false, which will cause a runtime exception to be
+         thrown.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>role</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;If the user is in the specified role, the tag is taken into account;
+         otherwise, the tag is ignored (skipped).&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>preparer</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The fully qualified class name of preparer.</description>
+  </attribute>
+ </tag>
+ <tag>
+  <name>insertAttribute</name>
+  <tag-class>org.apache.tiles.jsp.taglib.InsertAttributeTag</tag-class>
+  <body-content>JSP</body-content>
+  <description>
+      &lt;p&gt;&lt;strong&gt;Inserts the value of an attribute into the page.&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;This tag can be flexibly used to insert the value of an attribute into a page.
+      As in other usages in Tiles, every attribute can be determined to have a "type", 
+      either set explicitly when it was defined, or "computed".  If the type is not explicit, then
+      if the attribute value is a valid definition, it will be inserted as such.  Otherwise,
+      if it begins with a "/" character, it will be treated as a "template".  Finally, if it 
+      has not otherwise been assigned a type, it will be treated as a String and included without 
+      any special handling.&lt;/p&gt;
+     
+      &lt;p&gt;&lt;strong&gt;Example : &lt;/strong&gt;&lt;/p&gt;
+      &lt;pre&gt;
+        &lt;code&gt;
+          &amp;lt;tiles:insertAttribute name="body" /&amp;gt;
+        &lt;/code&gt;
+      &lt;/pre&gt;
+      </description>
+  <attribute>
+   <name>name</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Name of the attribute to insert. This attribute will be ignored if
+         the &lt;code&gt;value&lt;/code&gt; attribute is specified.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>value</name>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.Object</type>
+   <description>
+         &lt;p&gt;Attribute object to render directly. If it specified, the &lt;code&gt;name&lt;/code&gt;
+         attribute will be ignored.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>flush</name>
+   <rtexprvalue>false</rtexprvalue>
+   <type>boolean</type>
+   <description>
+         &lt;p&gt;True or false. If true, current page out stream is flushed 
+         before insertion.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>ignore</name>
+   <rtexprvalue>true</rtexprvalue>
+   <type>boolean</type>
+   <description>
+         &lt;p&gt;If this attribute is set to true, and the attribute specified by the
+         name does not exist, simply return without writing anything. The
+         default value is false, which will cause a runtime exception to be
+         thrown.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>role</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;If the user is in the specified role, the tag is taken into account;
+         otherwise, the tag is ignored (skipped).&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>preparer</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The fully qualified name of the preparer.</description>
+  </attribute>
+ </tag>
+ <tag>
+  <name>definition</name>
+  <tag-class>org.apache.tiles.jsp.taglib.definition.DefinitionTag</tag-class>
+  <body-content>JSP</body-content>
+  <description>
+         &lt;p&gt;&lt;strong&gt;Create a definition at runtime.
+         &lt;/strong&gt;&lt;/p&gt;
+         &lt;p&gt;Create a new definition at runtime.
+         Newly created definition will be available across the entire request.
+         &lt;/p&gt;</description>
+  <attribute>
+   <name>name</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Specifies the name under which the newly created definition bean 
+         will be saved.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>template</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;A string representing the URI of a template 
+         (a JSP page).&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>role</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Role to check before inserting this definition. If role is not 
+         defined for current user, definition is not inserted. Checking is
+         done at insert time, not during definition process.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>extends</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Name of a parent definition that is used to initialize this new 
+         definition. Parent definition is searched in definitions factory.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>preparer</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Specifies the preparer name to use. The specified preparer will
+         be executed before rendering this newly created definition.&lt;/p&gt;
+         </description>
+  </attribute>
+ </tag>
+ <tag>
+  <name>putAttribute</name>
+  <tag-class>org.apache.tiles.jsp.taglib.PutAttributeTag</tag-class>
+  <body-content>JSP</body-content>
+  <description>
+      &lt;p&gt;&lt;strong&gt;Put an attribute in enclosing attribute container tag.&lt;/strong&gt;&lt;/p&gt;
+		&lt;p&gt;
+		Enclosing attribute container tag can be : 
+		&lt;ul&gt;
+		&lt;li&gt;&amp;lt;initContainer&amp;gt;&lt;/li&gt; 
+		&lt;li&gt;&amp;lt;definition&amp;gt;&lt;/li&gt; 
+		&lt;li&gt;&amp;lt;insertAttribute&amp;gt;&lt;/li&gt; 
+		&lt;li&gt;&amp;lt;insertDefinition&amp;gt;&lt;/li&gt;
+		&lt;li&gt;&amp;lt;putListAttribute&amp;gt;&lt;/li&gt;
+		&lt;/ul&gt;
+		(or any other tag which implements the &lt;code&gt;PutAttributeTagParent&lt;/code&gt; interface.
+		Exception is thrown if no appropriate tag can be found.&lt;/p&gt;
+		&lt;p&gt;Put tag can have following atributes :
+		&lt;ul&gt;
+		&lt;li&gt;name : Name of the attribute&lt;/li&gt;
+		&lt;li&gt;value : value to put as attribute&lt;/li&gt;
+		&lt;li&gt;type : value type. Possible type are : string (value is used as direct string),
+		template (value is used as a page url to insert),
+		definition (value is used as a definition name to insert),
+		object (value is used as it is)&lt;/li&gt;
+		&lt;li&gt;role : Role to check when 'insertAttribute' will be called.&lt;/li&gt;
+		&lt;/ul&gt;&lt;/p&gt;
+		&lt;p&gt;Value can also come from tag body. Tag body is taken into account only if
+		value is not set by one of the tag attributes. In this case Attribute type is
+		"string", unless tag body define another type.&lt;/p&gt;
+      </description>
+  <attribute>
+   <name>name</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Name of the attribute.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>value</name>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.Object</type>
+   <description>
+         &lt;p&gt;Attribute value. Could be a String or an Object.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>type</name>
+   <rtexprvalue>false</rtexprvalue>
+   <description>
+         &lt;p&gt;Specify content type: string, template or definition.&lt;/p&gt;
+         &lt;ul&gt;
+           &lt;li&gt;string : Content is printed directly.&lt;/li&gt;
+           &lt;li&gt;template : Content is included from specified URL. Value is used as an URL.&lt;/li&gt;
+           &lt;li&gt;definition : Value is the name of a definition defined in factory (xml file). Definition will be searched
+           in the inserted tile, in a &lt;code&gt;&amp;lt;tiles:insertAttribute name="attributeName"&amp;gt;&lt;/code&gt; tag, where 'attributeName'
+           is the name used for this tag.&lt;/li&gt;
+           &lt;li&gt;object: the value is used as it is.&lt;/li&gt;
+         &lt;/ul&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>role</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;
+         If the user is in the specified role, the tag is taken into account;
+         otherwise, the tag is ignored (skipped).
+         &lt;/p&gt;
+         </description>
+  </attribute>
+ </tag>
+ <tag>
+  <name>putListAttribute</name>
+  <tag-class>org.apache.tiles.jsp.taglib.PutListAttributeTag</tag-class>
+  <body-content>JSP</body-content>
+  <description>
+      &lt;p&gt;&lt;strong&gt;Declare a list that will be pass as attribute to tile.
+      &lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;Declare a list that will be pass as attribute to tile.
+      List elements are added using the tags 'addAttribute' or 'addListAttribute'.
+      This tag can only be used inside 'insertTemplate', 'insertDefinition',
+      'definition' tags.&lt;/p&gt;
+      </description>
+  <attribute>
+   <name>name</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Name of the list.&lt;/p&gt;
+         </description>
+  </attribute>
+ </tag>
+ <tag>
+  <name>addAttribute</name>
+  <!--
+           Intentionally PutTag, it doubles for the AddTag
+           The only difference between the two is that the name
+           is not used in the Add Tag (and it's only valid within
+           the PutList
+        -->
+  <tag-class>org.apache.tiles.jsp.taglib.AddAttributeTag</tag-class>
+  <body-content>JSP</body-content>
+  <description>
+      &lt;p&gt;&lt;strong&gt;Add an element to the surrounding list.
+      Equivalent to 'putAttribute', but for list element.&lt;/strong&gt;&lt;/p&gt;
+          
+      &lt;p&gt;Add an element to the surrounding list.
+      This tag can only be used inside 'putListAttribute' or 'addListAttribute' tags.
+      Value can come from a direct assignment (value="aValue")&lt;/p&gt;
+      </description>
+  <attribute>
+   <name>value</name>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.Object</type>
+   <description>
+         &lt;p&gt;Attribute value. Can be a String or Object.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>type</name>
+   <rtexprvalue>false</rtexprvalue>
+   <description>
+         &lt;p&gt;Specify content type: string, template or definition.&lt;/p&gt;
+         &lt;ul&gt;
+            &lt;li&gt;string : Content is printed directly.&lt;/li&gt;
+            &lt;li&gt;template : Content is included from specified URL. Value is used as an URL.&lt;/li&gt;
+            &lt;li&gt;definition : Value denote a definition defined in factory (xml file). Definition will be searched
+            in the inserted tile, in a &lt;code&gt;&amp;lt;insertAttribute name="attributeName"&amp;gt;&lt;/code&gt; tag, where 'attributeName'
+            is the name used for this tag.&lt;/li&gt;
+            &lt;li&gt;object: the value is used as it is.&lt;/li&gt;
+         &lt;/ul&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>role</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;If the user is in the specified role, the tag is taken into account;
+         otherwise, the tag is ignored (skipped).&lt;/p&gt;
+         </description>
+  </attribute>
+ </tag>
+ <tag>
+  <name>addListAttribute</name>
+  <tag-class>org.apache.tiles.jsp.taglib.AddListAttributeTag</tag-class>
+  <body-content>JSP</body-content>
+  <description>
+      &lt;p&gt;&lt;strong&gt;Declare a list that will be pass as an attribute.
+      &lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;Declare a list that will be pass as an attribute .
+      List elements are added using the tag 'addAttribute' or 'addListAttribute'.
+      This tag can only be used inside 'insertTemplate', 'insertDefinition'
+      or 'definition' tag.&lt;/p&gt;
+      </description>
+ </tag>
+ <tag>
+  <name>getAsString</name>
+  <tag-class>org.apache.tiles.jsp.taglib.GetAsStringTag</tag-class>
+  <body-content>empty</body-content>
+  <description>
+      &lt;p&gt;&lt;strong&gt;
+      Render the value of the specified template attribute to the current JspWriter
+      &lt;/strong&gt;&lt;/p&gt;
+          
+      &lt;p&gt;Retrieve the value of the specified template attribute 
+      property, and render it to the current JspWriter as a String.
+      The usual toString() conversions is applied on found value.&lt;/p&gt;
+      &lt;p&gt;Throw a JSPException if named value is not found.&lt;/p&gt;
+      </description>
+  <attribute>
+   <name>name</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Attribute name.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>ignore</name>
+   <rtexprvalue>true</rtexprvalue>
+   <type>boolean</type>
+   <description>
+         &lt;p&gt;
+         If this attribute is set to true, and the attribute specified by the name
+         does not exist, simply return without writing anything. The default value is false, which will
+         cause a runtime exception to be thrown.
+         &lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>role</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;
+         If the user is in the specified role, the tag is taken into account;
+         otherwise, the tag is ignored (skipped).
+         &lt;/p&gt;
+         </description>
+  </attribute>
+ </tag>
+ <tag>
+  <name>useAttribute</name>
+  <tag-class>org.apache.tiles.jsp.taglib.UseAttributeTag</tag-class>
+  <tei-class>org.apache.tiles.jsp.taglib.UseAttributeTag$Tei</tei-class>
+  <body-content>empty</body-content>
+  <description>
+      &lt;p&gt;&lt;strong&gt;Use attribute value inside page.&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;Declare a Java variable, and an attribute in the specified scope, 
+      using its attribute value.&lt;/p&gt;
+      &lt;p&gt;Java variable and attribute will have the name specified by 'id',
+      or the original name if not specified.&lt;/p&gt;
+      </description>
+  <attribute>
+   <name>id</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Declared attribute and variable name.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>classname</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Class of the declared variable.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>scope</name>
+   <rtexprvalue>false</rtexprvalue>
+   <description>
+         &lt;p&gt;Scope of the declared attribute. Default to 'page'.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>name</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Attribute name.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>ignore</name>
+   <rtexprvalue>true</rtexprvalue>
+   <type>boolean</type>
+   <description>
+         &lt;p&gt;
+         If this attribute is set to true, and the attribute specified by the name
+         does not exist, simply return without error. The default value is false, which will
+         cause a runtime exception to be thrown.
+         &lt;/p&gt;
+         </description>
+  </attribute>
+ </tag>
+ <tag>
+  <name>importAttribute</name>
+  <tag-class>org.apache.tiles.jsp.taglib.ImportAttributeTag</tag-class>
+  <body-content>empty</body-content>
+  <description>
+      &lt;p&gt;&lt;strong&gt;Import attribute(s) in specified context.&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;Import attribute(s) to requested scope.
+      Attribute name and scope are optional. If not specified, all
+      attributes are imported in page scope.
+      Once imported, an attribute can be used as any other beans from jsp 
+      contexts.&lt;/p&gt;
+      </description>
+  <attribute>
+   <name>name</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Attribute name. If not specified, all attributes are
+         imported.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>toName</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>
+         &lt;p&gt;Name of the destination bean. If not specified, the name will
+         be the same as specified in &lt;code&gt;name&lt;/code&gt; attribute&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>scope</name>
+   <rtexprvalue>false</rtexprvalue>
+   <description>
+         &lt;p&gt;Scope into which attribute is imported. Default to page.&lt;/p&gt;
+         </description>
+  </attribute>
+  <attribute>
+   <name>ignore</name>
+   <rtexprvalue>true</rtexprvalue>
+   <type>boolean</type>
+   <description>
+         &lt;p&gt;If this attribute is set to true, and the attribute specified by 
+         the name does not exist, simply return without error. The default 
+         value is false, which will cause a runtime exception to be thrown.&lt;/p&gt;
+         </description>
+  </attribute>
+ </tag>
+ <tag>
+  <name>initContainer</name>
+  <tag-class>org.apache.tiles.jsp.taglib.definition.InitContainerTag</tag-class>
+  <body-content>JSP</body-content>
+  <description>
+      &lt;p&gt;&lt;strong&gt;Initialize the TilesContainer.&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;
+      In order to use the Tiles system, a TilesContainer must be instantiated.
+      This initialization is generally done by the TilesListener (or perhaps the
+      TilesServlet or TilesFilter).
+      &lt;/p&gt;
+      &lt;p&gt;
+      If the intialization needs to be dynamic, you can initialize the container using
+      this tag.  Realize however, that this tag MUST be executed prior to invoking
+      any other definitions.  Additionally, the initilization may only be done once,
+      and any subsequent invocations will be ignored.
+      &lt;/p&gt;
+      </description>
+  <attribute>
+   <name>containerFactory</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description> &lt;p&gt;Container Factory implementation used to instantiate the container.&lt;/p&gt; </description>
+  </attribute>
+ </tag>
+ <tag>
+  <name>destroyContainer</name>
+  <tag-class>org.apache.tiles.jsp.taglib.definition.DestroyContainerTag</tag-class>
+  <body-content>empty</body-content>
+  <description>
+            &lt;p&gt;&lt;strong&gt;Destroy the TilesContainer.&lt;/strong&gt;&lt;/p&gt;
+            </description>
+ </tag>
+</taglib>

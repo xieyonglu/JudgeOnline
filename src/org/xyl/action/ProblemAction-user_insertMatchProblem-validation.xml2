@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.3//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.3.dtd">
+
+<validators>
+
+	<!--试题标题的校验-->
+	<field name="problem.title">
+		<field-validator type="required">
+			<message>试题标题不能为null！</message>
+		</field-validator>
+		<field-validator type="requiredstring">
+			<message>试题标题不能为空！</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">2</param>
+			<param name="maxLength">20</param>
+			<message>试题标题必须是2~20位！</message>
+		</field-validator>
+	</field>
+
+	<!--试题来源的校验-->
+	<field name="problem.source">
+		<field-validator type="stringlength">
+			<param name="maxLength">20</param>
+			<message>试题来源最大必须是20位！</message>
+		</field-validator>
+	</field>
+
+	<!--试题时间限制的校验-->
+	<field name="problem.timeLimit">
+		<field-validator type="int">
+			<param name="min">0</param>
+			<param name="min">10000</param>
+			<message>时间限制错误，必须是${min}到${max}！</message>
+		</field-validator>
+	</field>
+
+	<!--试题内存限制的校验-->
+	<field name="problem.memoryLimit">
+		<field-validator type="int">
+			<param name="min">0</param>
+			<param name="min">10000</param>
+			<message>内存限制错误，必须是${min}到${max}！</message>
+		</field-validator>
+	</field>
+	
+</validators>
+
+

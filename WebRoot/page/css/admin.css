@@ -1,0 +1,68 @@
+/*管理员CSS样式*/
+body{
+	text-align:center;
+	background-color:#EFFCB6;
+}
+
+a{font:13px;text-align:right;}
+a:link{text-decoration:none; color:yellow;}
+a:visited{text-decoration:none; color:blue;}
+a:hover{text-decoration:underline; color:red;}
+a:active{text-decoration:none; color:green;}
+
+
+select{
+	position:relative;
+	font-size:15px;
+	line-height:60px;
+	border:0px;
+	color:red;
+}
+
+#one{
+	width:800px;
+	height:500;
+	background-color:#C4BAF1;
+	border:1px dashed gray;
+}
+
+#two{
+	width:450;
+	height:200;
+	margin-top:42px;
+	float:left;
+	text-align:right;
+}
+
+#three{
+	width:330px;
+	height:200px;
+	margin-top:45px;
+	float:right;
+	text-align:left;
+}
+
+.text{
+	border-style:groove;
+	vertical-align:buttom;
+	width:180px;
+	height:25px;
+}
+
+.button{
+	border-style:none;
+	background-color:green;
+	width:60px;
+	height:25px;
+}
+
+.formFieldError{
+	font-family:verdana,arial,helvetica,sans-serif;
+	font-size:12px;
+	color:#ff3300;
+	margin:1px; 
+	padding:4px; 
+	vertical-align:bottom;
+}
+
+

@@ -1,0 +1,62 @@
+/*注册成功页面CSS样式*/
+body{
+	background-color:#b0c4de;
+	margin:0px;
+	text-align:center;
+}
+
+a{font:13px;text-align:right;}
+a:link{text-decoration:none; color:blue;}
+a:visited{text-decoration:none; color:orange;}
+a:hover{text-decoration:underline; color:red;}
+a:active{text-decoration:none; color:green;}
+
+td{
+	font:12px;
+	padding:5px,5px;
+}
+
+#one{
+	background-color:#b2e8f5;
+	width:1030px;
+	height:650px;
+	border:1px solid gray;
+}
+#two{
+	width:700px;
+	height:350px;
+}
+
+.text{
+	width:160px;
+	height:25px;
+}
+
+.button{
+	border-style:none;
+	background-color:pink;
+	width:150px;
+	height:40px;
+	cursor:pointer;
+}
+.td_1{
+	border:1px solid gray;
+	background-color:pink;
+	padding:5px,70px;
+	color:green;
+	text-align:left;
+	width:200px;
+	height:70px;
+}
+.td_x{
+	font:12px;
+	color:blue;
+	padding:5px,0px;
+}
+
+.td_1 a{font:bold 14px;color:green;text-align:right;}
+.td_1 a:link{text-decoration:none; color:blue;}
+.td_1 a:visited{text-decoration:none; color:green;}
+.td_1 a:hover{text-decoration:underline; color:red;}
+.td_1 a:active{text-decoration:none; color:green;}
+

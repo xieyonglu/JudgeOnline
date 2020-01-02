@@ -1,0 +1,22 @@
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>  
+    <definition name="layout" template="/layout.jsp">  
+        <put-attribute name="title" value="Tiles Show"/>  
+        <put-attribute name="header" value="/top.html"/>
+        <put-attribute name="sidebar" value="/top.html" />
+        <put-attribute name="body" value="/content.jsp"/>
+        <put-attribute name="footer" value="/bottom.html"/>  
+	</definition>
+	
+	<definition name="layout2" template="/layout.jsp">  
+        <put-attribute name="title" value="Tiles Show"/>  
+        <put-attribute name="header" value="/top.html"/>
+        <put-attribute name="sidebar" value="/top.html" />
+        <put-attribute name="body" value="/content.jsp"/>
+        <put-attribute name="footer" value="/bottom.html"/>  
+	</definition>
+</tiles-definitions>
+
+

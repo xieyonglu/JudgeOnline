@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+"http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<!--设置扩展名-->
+	<constant name="struts.action.extension" value="action,do" />
+	<constant name="struts.i18n.encoding" value="GBK" />
+	<!--设置修改了配置文件不用重新启动-->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.ui.name" value="simple" />
+
+	<package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="permission" class="org.xyl.interceptor.PermissionInterceptor"/>
+			<interceptor-stack name="myDefault">
+				<interceptor-ref name="permission">
+					<param name="includeMethods">
+						insertAdmin,updateAdmin
+                    </param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+
+		</interceptors>
+
+		<default-interceptor-ref name="myDefault"/>
+
+
+		<!--配置了全局异常处理-->
+		<global-results>
+			<result name="adminLogin">/againLogin.jsp</result>
+			<result name="message_list">/WEB-INF/jsp/message/list.jsp</result>
+			<result name="findException">/inc/error.jsp</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping result="findException"
+				exception="org.xyl.util.MessageException" />
+		</global-exception-mappings>
+
+		<!--用户上传自己的图片-->
+		<action name="updateMyPicture" class="userAction" method="updateMyPicture">
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">
+					image/pjpeg,image/jpeg,image/gif,image/bmp,image/png
+				</param>
+				<param name="maximumSize">900000</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			
+			<result name="input">/user/myPicture.jsp</result>
+			<result name="success">/inc/success.jsp</result>
+		</action>
+		
+		<action name="*_*" class="{1}Action" method="{2}">
+			<result name="success">/${#urlAction}</result>
+			<result name="input">/${#urlAction}</result>
+			<result name="redirect" type="redirect">/${#urlAction}</result>
+		</action>
+		
+		<!--struts与tile整合-->
+		<!--
+		<action name="allBooks" class="action.AllBooks">
+    		<result name="success" type="tiles">layout</result>
+    	</action>
+		-->
+		  
+		  
+	</package>
+
+
+</struts>
+
+
+

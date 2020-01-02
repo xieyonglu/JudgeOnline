@@ -1,0 +1,37 @@
+/* CSS Document */
+body{
+	background:#fff;
+	font: 16px/1.95em "Lucida Grande","Lucida Sans Unicode",geneva,verdana,sans-serif;
+	margin:0;
+	color:#666;
+	padding-top:20px;
+	border:3px solid #eee;
+	text-align:center;
+}
+
+.title{
+	text-align:center;
+	font-size:18px;
+	color:red;
+}
+
+.td_1{
+	text-align:right;
+	vertical-align:top;
+	width:80px;
+}
+
+.td_2{
+	text-align:left;
+	padding-left:20px;
+}
+
+.txt{
+	width:100px;
+}
+
+a{
+	color:#000;
+	text-decoration:none;
+}
+
